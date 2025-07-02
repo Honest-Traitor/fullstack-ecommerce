@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/ecommerce?useSSL=false&serverTimezone=UTC
+    username: ${DB_USER:root}
+    password: ${DB_PASS:dementia98**}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # consider 'none' or 'validate' in production
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+  jackson:
+    serialization:
+      indent_output: true
+
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:2fkjU98gty5TrVk7SpUyq8xZz4lD1jb6Jji+pgk5xa8=}
+    expiration: 86400000 # 24 hours in milliseconds
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    com.honesttraitor.ecommerce: DEBUG
