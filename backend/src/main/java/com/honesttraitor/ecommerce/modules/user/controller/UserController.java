@@ -1,6 +1,7 @@
 package com.honesttraitor.ecommerce.modules.user.controller;
 
 import com.honesttraitor.ecommerce.modules.user.dto.UserResponseDto;
+import com.honesttraitor.ecommerce.modules.user.dto.UserUpdateDto;
 import com.honesttraitor.ecommerce.modules.user.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,13 @@ public class UserController {
 
     // 📝 Current user: Update own info
     @PutMapping("/me")
-    public UserResponseDto updateProfile(@RequestBody UserResponseDto dto) {
+    public UserResponseDto updateProfile(@RequestBody UserUpdateDto dto) {
         return userService.updateCurrentUser(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
     }
 }

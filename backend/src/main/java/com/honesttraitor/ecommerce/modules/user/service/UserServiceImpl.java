@@ -1,6 +1,7 @@
 package com.honesttraitor.ecommerce.modules.user.service;
 
 import com.honesttraitor.ecommerce.modules.user.dto.UserResponseDto;
+import com.honesttraitor.ecommerce.modules.user.dto.UserUpdateDto;
 import com.honesttraitor.ecommerce.modules.user.mapper.UserMapper;
 import com.honesttraitor.ecommerce.modules.user.model.User;
 import com.honesttraitor.ecommerce.modules.user.repository.UserRepository;
@@ -36,13 +37,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto updateCurrentUser(UserResponseDto dto) {
+    public UserResponseDto updateCurrentUser(UserUpdateDto dto) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByEmail(email).orElseThrow();
 
-        user.setFullName(dto.getFullName());
-        user.setEnabled(dto.isEnabled());
+        user.setFullName(dto.getFullName()); // Only allow name changes
 
         return userMapper.toDto(userRepository.save(user));
+    }
+
+    @Override
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 }
