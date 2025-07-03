@@ -36,6 +36,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/users", "/api/users/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/cart", "/api/cart/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/cart", "/api/orders").authenticated()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider())

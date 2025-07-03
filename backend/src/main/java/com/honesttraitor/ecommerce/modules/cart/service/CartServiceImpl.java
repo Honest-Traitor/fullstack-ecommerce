@@ -12,6 +12,7 @@ import com.honesttraitor.ecommerce.modules.product.model.Product;
 import com.honesttraitor.ecommerce.modules.product.repository.ProductRepository;
 import com.honesttraitor.ecommerce.modules.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -69,6 +70,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public void clearCart(String userEmail) {
         Long userId = getUserId(userEmail);
         Cart cart = cartRepository.findByUserId(userId)
