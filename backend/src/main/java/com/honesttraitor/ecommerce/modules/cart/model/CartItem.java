@@ -11,7 +11,7 @@ public class CartItem {
 
     private Long cartId;
     private Long productId;
-    private int quantity;
+    private Integer quantity;
 
     public CartItem() {}
 

@@ -3,6 +3,7 @@ package com.honesttraitor.ecommerce.modules.product.controller;
 import com.honesttraitor.ecommerce.modules.product.dto.ProductRequestDto;
 import com.honesttraitor.ecommerce.modules.product.dto.ProductResponseDto;
 import com.honesttraitor.ecommerce.modules.product.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,7 @@ public class ProductController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ProductResponseDto create(@RequestBody ProductRequestDto dto) {
+    public ProductResponseDto create(@Valid @RequestBody ProductRequestDto dto) {
         return productService.create(dto);
     }
 

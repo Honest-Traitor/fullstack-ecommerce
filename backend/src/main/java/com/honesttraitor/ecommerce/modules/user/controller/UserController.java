@@ -3,6 +3,7 @@ package com.honesttraitor.ecommerce.modules.user.controller;
 import com.honesttraitor.ecommerce.modules.user.dto.UserResponseDto;
 import com.honesttraitor.ecommerce.modules.user.dto.UserUpdateDto;
 import com.honesttraitor.ecommerce.modules.user.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class UserController {
 
     // 📝 Current user: Update own info
     @PutMapping("/me")
-    public UserResponseDto updateProfile(@RequestBody UserUpdateDto dto) {
+    public UserResponseDto updateProfile(@Valid @RequestBody UserUpdateDto dto) {
         return userService.updateCurrentUser(dto);
     }
 

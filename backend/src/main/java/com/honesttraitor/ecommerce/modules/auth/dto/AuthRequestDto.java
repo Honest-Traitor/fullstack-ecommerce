@@ -1,13 +1,20 @@
 package com.honesttraitor.ecommerce.modules.auth.dto;
 
-public class AuthRequest {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
+public class AuthRequestDto {
+
+    @NotBlank(message = "Email cannot be blank")
+    @Email(message = "Email should be valid")
     private String email;
+
+    @NotBlank(message = "Password cannot be blank")
     private String password;
 
-    public AuthRequest() {}
+    public AuthRequestDto() {}
 
-    public AuthRequest(String email, String password) {
+    public AuthRequestDto(String email, String password) {
         this.email = email;
         this.password = password;
     }

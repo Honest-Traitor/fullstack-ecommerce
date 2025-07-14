@@ -3,6 +3,7 @@ package com.honesttraitor.ecommerce.modules.cart.controller;
 import com.honesttraitor.ecommerce.modules.cart.dto.CartItemRequestDto;
 import com.honesttraitor.ecommerce.modules.cart.dto.CartResponseDto;
 import com.honesttraitor.ecommerce.modules.cart.service.CartService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public void addOrUpdate(@RequestBody CartItemRequestDto dto) {
+    public void addOrUpdate(@Valid @RequestBody CartItemRequestDto dto) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         cartService.addOrUpdateItem(email, dto);
     }

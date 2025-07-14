@@ -2,16 +2,16 @@ package com.honesttraitor.ecommerce.modules.auth.dto;
 
 import java.util.Set;
 
-public class AuthResponse {
+public class AuthResponseDto {
 
     private String accessToken;
     private String refreshToken;
     private String email;
     private Set<String> roles;
 
-    public AuthResponse() {}
+    public AuthResponseDto() {}
 
-    public AuthResponse(String accessToken, String refreshToken, String email, Set<String> roles) {
+    public AuthResponseDto(String accessToken, String refreshToken, String email, Set<String> roles) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.email = email;
@@ -60,8 +60,8 @@ public class AuthResponse {
             return this;
         }
 
-        public AuthResponse build() {
-            return new AuthResponse(accessToken, refreshToken, email, roles);
+        public AuthResponseDto build() {
+            return new AuthResponseDto(accessToken, refreshToken, email, roles);
         }
     }
 }

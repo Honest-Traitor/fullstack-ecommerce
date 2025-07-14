@@ -2,13 +2,12 @@ package com.honesttraitor.ecommerce.modules.auth.service;
 
 import com.honesttraitor.ecommerce.common.exception.InvalidCredentialException;
 import com.honesttraitor.ecommerce.common.exception.UsernameAlreadyExistsException;
-import com.honesttraitor.ecommerce.modules.auth.dto.AuthRequest;
-import com.honesttraitor.ecommerce.modules.auth.dto.AuthResponse;
-import com.honesttraitor.ecommerce.modules.auth.dto.RegisterRequest;
+import com.honesttraitor.ecommerce.modules.auth.dto.AuthRequestDto;
+import com.honesttraitor.ecommerce.modules.auth.dto.AuthResponseDto;
+import com.honesttraitor.ecommerce.modules.auth.dto.RegisterRequestDto;
 import com.honesttraitor.ecommerce.modules.auth.jwt.JwtUtil;
 import com.honesttraitor.ecommerce.modules.user.model.User;
 import com.honesttraitor.ecommerce.modules.user.repository.UserRepository;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +30,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse register(RegisterRequest request) {
+    public AuthResponseDto register(RegisterRequestDto request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new UsernameAlreadyExistsException("Username already exists");
         }
@@ -49,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
         );
         userRepository.save(user);
 
-        return AuthResponse.builder()
+        return AuthResponseDto.builder()
                 .accessToken(jwtUtil.generateToken(user))
                 .email(user.getEmail())
                 .roles(user.getRoles())
@@ -58,7 +57,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse login(AuthRequest request) {
+    public AuthResponseDto login(AuthRequestDto request) {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new InvalidCredentialException("Invalid/Unregistered username"));
 
@@ -66,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
             throw new InvalidCredentialException("Invalid password");
         }
 
-        return AuthResponse.builder()
+        return AuthResponseDto.builder()
                 .accessToken(jwtUtil.generateToken(user))
                 .email(user.getEmail())
                 .roles(user.getRoles())
